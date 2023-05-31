@@ -1,25 +1,32 @@
 import {
   Box,
+  Text,
   Button,
   FormControl,
-  FormLabel,
   Textarea,
-  FormErrorMessage,
-} from "@chakra-ui/react"
-import { useState } from "react"
+  FormErrorMessage
+} from '@chakra-ui/react'
+import { useState } from 'react'
+import { useAuth } from '../context/auth'
 
 export function CommentForm({
   loading,
   error,
   onSubmit,
   autoFocus = false,
-  initialValue = "",
+  initialValue = ''
 }) {
   const [message, setMessage] = useState(initialValue)
+  const [notLogin, setNotLogin] = useState(false)
+  const { token } = useAuth()
 
   function handleSubmit(e) {
     e.preventDefault()
-    onSubmit(message).then(() => setMessage(""))
+    if (token) {
+      onSubmit(message).then(() => setMessage(''))
+    } else {
+      setNotLogin(true)
+    }
   }
   return (
     <Box>
@@ -28,12 +35,11 @@ export function CommentForm({
         isInvalid={loading || error}
         onSubmit={handleSubmit}
       >
-        <FormLabel>input comment</FormLabel>
         <Box display="flex" gap={2}>
           <Textarea
             autoFocus={autoFocus}
             value={message}
-            onChange={(e) => setMessage(e.target.value)}
+            onChange={e => setMessage(e.target.value)}
           />
           <Button
             height="unset"
@@ -45,6 +51,7 @@ export function CommentForm({
           </Button>
         </Box>
         <FormErrorMessage>{error}</FormErrorMessage>
+        {notLogin && <Text color="red.400">Please log in first</Text>}
       </FormControl>
     </Box>
   )

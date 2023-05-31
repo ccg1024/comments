@@ -53,7 +53,7 @@ const LoginMenu = ({ username, onLogout }) => {
         aria-label="user"
         icon={<FaUser />}
         variant="outline"
-        borderRadius="lg"
+        borderRadius="full"
       />
       <MenuList>
         <MenuItem>{username}</MenuItem>
@@ -73,6 +73,8 @@ const NavBar = () => {
       backgroundColor={useColorModeValue('whiteAlpha.50', 'blackAlpha.50')}
       zIndex={1}
       boxShadow="lg"
+      backdropFilter="auto"
+      backdropBlur="md"
     >
       <LogLinkStyle />
       <Container maxWidth="container.md">

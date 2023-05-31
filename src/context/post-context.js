@@ -1,8 +1,8 @@
-import React, { useContext, useEffect, useMemo, useState } from "react"
-import { useAsync } from "../hooks/useAsync"
-import { getPost } from "../services/posts"
-import { useParams } from "react-router-dom"
-import { Heading } from "@chakra-ui/react"
+import React, { useContext, useEffect, useMemo, useState } from 'react'
+import { useAsync } from '../hooks/useAsync'
+import { getPost } from '../services/posts'
+import { useParams } from 'react-router-dom'
+import { Heading, Spinner, Center } from '@chakra-ui/react'
 
 const Context = React.createContext()
 
@@ -16,7 +16,7 @@ export function PostProvider({ children }) {
   const [comments, setComments] = useState([])
   const commentsByParentId = useMemo(() => {
     const group = {}
-    comments.forEach((comment) => {
+    comments.forEach(comment => {
       group[comment.parentId] ||= []
       group[comment.parentId].push(comment)
     })
@@ -34,14 +34,14 @@ export function PostProvider({ children }) {
   }
 
   function createLocalComment(comment) {
-    setComments((prevComments) => {
+    setComments(prevComments => {
       return [comment, ...prevComments]
     })
   }
 
   function updateLocalComment(id, message) {
-    setComments((prevComments) => {
-      return prevComments.map((comment) => {
+    setComments(prevComments => {
+      return prevComments.map(comment => {
         if (comment.id === id) {
           return { ...comment, message }
         } else {
@@ -52,26 +52,26 @@ export function PostProvider({ children }) {
   }
 
   function deleteLocalComment(id) {
-    setComments((prevComments) => {
-      return prevComments.filter((comment) => comment.id !== id)
+    setComments(prevComments => {
+      return prevComments.filter(comment => comment.id !== id)
     })
   }
 
   function toggleLocalCommentLike(id, addLike) {
-    setComments((prevComments) => {
-      return prevComments.map((comment) => {
+    setComments(prevComments => {
+      return prevComments.map(comment => {
         if (id === comment.id) {
           if (addLike) {
             return {
               ...comment,
               likeCount: comment.likeCount + 1,
-              likedByMe: true,
+              likedByMe: true
             }
           } else {
             return {
               ...comment,
               likeCount: comment.likeCount - 1,
-              likedByMe: false,
+              likedByMe: false
             }
           }
         } else {
@@ -90,11 +90,13 @@ export function PostProvider({ children }) {
         createLocalComment,
         updateLocalComment,
         deleteLocalComment,
-        toggleLocalCommentLike,
+        toggleLocalCommentLike
       }}
     >
       {loading ? (
-        <h1>Loading</h1>
+        <Center marginTop={10}>
+          <Spinner transform="translate(-50%, 0)" size="lg" />
+        </Center>
       ) : error ? (
         <Heading color="red">Got Error: {error}</Heading>
       ) : (

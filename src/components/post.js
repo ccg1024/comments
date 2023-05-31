@@ -1,9 +1,12 @@
-import { Box, Heading } from "@chakra-ui/react"
-import { usePost } from "../context/post-context"
-import { CommentList } from "./comment-list"
-import { CommentForm } from "./comment-from"
-import { useAsyncFn } from "../hooks/useAsync"
-import { createComment } from "../services/comments"
+import { Box, Heading, Text } from '@chakra-ui/react'
+import { usePost } from '../context/post-context'
+import { CommentList } from './comment-list'
+import { CommentForm } from './comment-from'
+import { useAsyncFn } from '../hooks/useAsync'
+import { createComment } from '../services/comments'
+import { Section } from './sections'
+import { dateFormater } from './post-list'
+import { FaUser } from 'react-icons/fa'
 
 export function Post() {
   const { post, rootComments, createLocalComment } = usePost()
@@ -17,26 +20,55 @@ export function Post() {
 
   return (
     <>
-      <Heading as="h1" fontSize="1.5rem">
-        {post.title}
-      </Heading>
-      <Box as="article" fontSize="1.1rem" marginY={4}>
-        {post.body}
-      </Box>
-      <Heading as="h3" fontSize="1.3rem" marginY={4}>
-        Comments
-      </Heading>
-      <Box as="section">
-        <CommentForm
-          loading={loading}
-          error={error}
-          onSubmit={onCommentCreate}
-        />
-        {rootComments != null && rootComments.length > 0 && (
-          <Box>
-            <CommentList comments={rootComments} />
+      <Box marginTop={4}>
+        <Section delay={0.1}>
+          <Box display="flex" alignItems="center" gap={4}>
+            <Box
+              borderWidth="1px"
+              borderStyle="solid"
+              borderColor="gray.200"
+              borderRadius="full"
+              padding={4}
+            >
+              <FaUser fontSize="3rem" />
+            </Box>
+            <Text fontSize="3rem" fontWeight="bold">
+              {post.user.name}
+            </Text>
           </Box>
-        )}
+        </Section>
+
+        <Section delay={0.2}>
+          <Heading as="h1" fontSize="2.5rem" marginY={8}>
+            {post.title}
+          </Heading>
+          <Box as="article" fontSize="1.2rem" marginY={4}>
+            {post.body}
+          </Box>
+          <Text textAlign="right" fontSize="1rem">
+            {dateFormater.format(Date.parse(post.createAt))}
+          </Text>
+        </Section>
+
+        <Section delay={0.3}>
+          <Heading as="h3" fontSize="1.3rem" marginY={4}>
+            Comments
+          </Heading>
+
+          <CommentForm
+            loading={loading}
+            error={error}
+            onSubmit={onCommentCreate}
+          />
+        </Section>
+
+        <Section delay={0.4}>
+          <Box as="section" marginBottom={16}>
+            {rootComments != null && rootComments.length > 0 && (
+              <CommentList comments={rootComments} />
+            )}
+          </Box>
+        </Section>
       </Box>
     </>
   )

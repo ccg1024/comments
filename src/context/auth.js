@@ -8,6 +8,17 @@ export const useAuth = () => {
   return useContext(AuthContext)
 }
 
+export function getUserInfo(token) {
+  if (token) {
+    return {
+      userid: token.split('; ')[0],
+      username: token.split('; ')[1]
+    }
+  }
+
+  return {}
+}
+
 function initialToken() {
   const user = getUserFromCookie()
 

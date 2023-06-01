@@ -69,7 +69,7 @@ export function CommentInteractive({
       <Flex justifyContent="right">
         <IconBtn
           onClick={onToggleCommentLike}
-          isLoading={toggleCommentLike.loading}
+          isDisabled={toggleCommentLikeFn.loading}
           Icon={likedByMe ? FaHeart : FaRegHeart}
           aria-label={likedByMe ? 'Unlike' : 'Like'}
         >
@@ -90,7 +90,7 @@ export function CommentInteractive({
               aria-label={isEditing ? 'Cancel Edit' : 'Edit'}
             />
             <IconBtn
-              isLoading={deleteCommentFn.loading}
+              isDisabled={deleteCommentFn.loading}
               onClick={onCommentDelete}
               Icon={FaTrash}
               aria-label="Delete"

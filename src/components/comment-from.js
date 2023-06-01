@@ -32,7 +32,8 @@ export function CommentForm({
     <Box>
       <FormControl
         as="form"
-        isInvalid={loading || error}
+        isInvalid={error}
+        isDisabled={loading}
         onSubmit={handleSubmit}
       >
         <Box display="flex" gap={2}>
@@ -41,12 +42,7 @@ export function CommentForm({
             value={message}
             onChange={e => setMessage(e.target.value)}
           />
-          <Button
-            height="unset"
-            isLoading={loading}
-            loadingText="loading"
-            type="submit"
-          >
+          <Button height="unset" isDisabled={loading} type="submit">
             post
           </Button>
         </Box>

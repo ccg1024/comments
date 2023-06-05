@@ -1,4 +1,4 @@
-import { Box, Flex, Text } from '@chakra-ui/react'
+import { Box, Flex, Text, useColorModeValue } from '@chakra-ui/react'
 import { dateFormatter } from './comment'
 import { CommentInteractive } from './interactive'
 
@@ -15,7 +15,7 @@ export function SubComment({
     <>
       <Box
         padding={4}
-        backgroundColor="gray.200"
+        backgroundColor={useColorModeValue('gray.200', 'blackAlpha.500')}
         borderTop="1px"
         borderStyle="solid"
         borderColor="gray.400"

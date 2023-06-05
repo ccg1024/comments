@@ -6,7 +6,8 @@ import {
   FormLabel,
   Input,
   Center,
-  Heading
+  Heading,
+  useColorModeValue
 } from '@chakra-ui/react'
 import { useState } from 'react'
 import { useAuth } from '../context/auth'
@@ -60,6 +61,7 @@ const Login = () => {
           padding={4}
           borderRadius="md"
           onSubmit={handleSubmit}
+          backgroundColor={useColorModeValue('unset', 'black')}
         >
           <FormLabel htmlFor="username">username</FormLabel>
           <Input
@@ -69,6 +71,7 @@ const Login = () => {
             value={username}
             onChange={e => setUsername(e.target.value)}
             autoComplete="off"
+            borderColor={useColorModeValue('black', 'white')}
           />
           {userError && <Text color="red">username is invalid</Text>}
 
@@ -80,6 +83,7 @@ const Login = () => {
             value={password}
             onChange={e => setPassword(e.target.value)}
             autoComplete="off"
+            borderColor={useColorModeValue('black', 'white')}
           />
           {pswdError && <Text color="red">password is invalid</Text>}
 
@@ -102,6 +106,7 @@ const Login = () => {
           marginTop={10}
           padding={4}
           borderRadius="md"
+          backgroundColor={useColorModeValue('unset', 'black')}
         >
           <Text textAlign="center">some info</Text>
         </Box>

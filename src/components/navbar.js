@@ -16,19 +16,27 @@ import { useAuth } from '../context/auth'
 import { FaUser } from 'react-icons/fa'
 import { useAsyncFn } from '../hooks/useAsync'
 import { outLogin } from '../services/auth'
+import { ToggleTheme } from './toggle-theme'
 
 const LogLinkStyle = () => (
   <Global
     styles={{
       '.log-link': {
-        color: useColorModeValue('black', 'white'),
         padding: 'var(--chakra-space-2)'
       },
       '.log-link:hover': {
-        backgroundColor: 'var(--chakra-colors-blue-50)'
+        backgroundColor: useColorModeValue(
+          'var(--chakra-colors-blue-50)',
+          'var(--chakra-colors-green-100)'
+        ),
+        color: useColorModeValue('black', 'black')
       },
       '.active': {
-        backgroundColor: 'var(--chakra-colors-blue-100)',
+        backgroundColor: useColorModeValue(
+          'var(--chakra-colors-blue-100)',
+          'var(--chakra-colors-green-200)'
+        ),
+        color: useColorModeValue('black', 'black'),
         padding: 'var(--chakra-space-2)'
       }
     }}
@@ -107,6 +115,7 @@ const NavBar = () => {
                 </NavLink>
               </>
             )}
+            <ToggleTheme />
           </Box>
         </Flex>
       </Container>

@@ -43,7 +43,7 @@ const LogLinkStyle = () => (
   />
 )
 
-const LoginMenu = ({ username, onLogout }) => {
+const LoginMenu = ({ userId, username, onLogout }) => {
   const logoutFn = useAsyncFn(outLogin)
 
   function handleLogout() {
@@ -65,6 +65,9 @@ const LoginMenu = ({ username, onLogout }) => {
       />
       <MenuList>
         <MenuItem>{username}</MenuItem>
+        <Link to={`/post/${userId}`}>
+          <MenuItem>create post</MenuItem>
+        </Link>
         <MenuItem onClick={handleLogout}>logout</MenuItem>
       </MenuList>
     </Menu>
@@ -94,7 +97,11 @@ const NavBar = () => {
           </Link>
           <Box display="flex" gap={2}>
             {token ? (
-              <LoginMenu username={token.split('; ')[1]} onLogout={onLogout} />
+              <LoginMenu
+                userId={token.split('; ')[0]}
+                username={token.split('; ')[1]}
+                onLogout={onLogout}
+              />
             ) : (
               <>
                 <NavLink

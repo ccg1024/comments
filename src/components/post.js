@@ -7,6 +7,7 @@ import { createComment } from '../services/comments'
 import { Section } from './sections'
 import { dateFormater } from './post-list'
 import { FaUser } from 'react-icons/fa'
+import ShowContext from './show-context'
 
 export function Post() {
   const { post, rootComments, createLocalComment } = usePost()
@@ -43,7 +44,7 @@ export function Post() {
             {post.title}
           </Heading>
           <Box as="article" fontSize="1.2rem" marginY={4}>
-            {post.body}
+            <ShowContext context={post.body} />
           </Box>
           <Text textAlign="right" fontSize="1rem">
             {dateFormater.format(Date.parse(post.createAt))}

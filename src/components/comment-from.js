@@ -23,7 +23,8 @@ export function CommentForm({
   function handleSubmit(e) {
     e.preventDefault()
     if (token) {
-      onSubmit(message).then(() => setMessage(''))
+      const filterMessage = message.trim()
+      onSubmit(filterMessage).then(() => setMessage(''))
     } else {
       setNotLogin(true)
     }

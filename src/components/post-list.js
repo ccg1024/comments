@@ -40,7 +40,7 @@ export function PostList() {
               alignItems="center"
               marginBottom={4}
             >
-              <Box border="1px solid black" padding={2} borderRadius="full">
+              <Box border="1px solid" padding={2} borderRadius="full">
                 <FaUser />
               </Box>
               <Text id={post.user.id}>{post.user.name}</Text>

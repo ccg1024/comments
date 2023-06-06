@@ -1,6 +1,7 @@
 import { Box, Flex, Text, useColorModeValue } from '@chakra-ui/react'
 import { dateFormatter } from './comment'
 import { CommentInteractive } from './interactive'
+import ShowContext from './show-context'
 
 export function SubComment({
   id,
@@ -27,7 +28,9 @@ export function SubComment({
             {dateFormatter.format(Date.parse(createAt))}
           </Box>
         </Flex>
-        <Box>{message}</Box>
+        <Box>
+          <ShowContext context={message} />
+        </Box>
 
         <CommentInteractive
           userId={user.id}

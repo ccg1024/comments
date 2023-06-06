@@ -54,7 +54,7 @@ export const ProtectedRoute = ({ children }) => {
   const location = useLocation()
 
   if (!token) {
-    return <Navigate to="/" replace state={{ from: location }} />
+    return <Navigate to="/" replace={true} state={{ from: location }} />
   }
   return children
 }

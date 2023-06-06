@@ -4,9 +4,10 @@ import PostList from './components/post-list'
 import { PostProvider } from './context/post-context'
 import { Post } from './components/post'
 import NavBar from './components/navbar'
-import { useAuth } from './context/auth'
+import { useAuth, ProtectedRoute } from './context/auth'
 import Login from './components/login'
 import { AnimatePresence } from 'framer-motion'
+import { CreatePost } from './components/create-post'
 
 function App() {
   const { token } = useAuth()
@@ -19,7 +20,7 @@ function App() {
           <Routes location={location} key={location.key}>
             <Route path="/" element={<PostList />} />
             <Route
-              path="/posts/:id"
+              path="posts/:id"
               element={
                 <PostProvider>
                   <Post />
@@ -27,7 +28,15 @@ function App() {
               }
             />
             <Route
-              path="/login"
+              path="post/:id"
+              element={
+                <ProtectedRoute>
+                  <CreatePost />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="login"
               element={token ? <Navigate to="/" /> : <Login />}
             />
           </Routes>

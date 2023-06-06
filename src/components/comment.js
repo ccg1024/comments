@@ -1,8 +1,9 @@
 import { useState } from 'react'
-import { Box, Text, Button } from '@chakra-ui/react'
+import { Box, Button } from '@chakra-ui/react'
 import { usePost } from '../context/post-context'
 import { SubCommentList } from './sub-comment-list'
 import { CommentInteractive } from './interactive'
+import ShowContext from './show-context'
 
 export const dateFormatter = new Intl.DateTimeFormat(undefined, {
   dateStyle: 'medium',
@@ -30,7 +31,7 @@ export function Comment({ id, message, user, createAt, likeCount, likedByMe }) {
         </Box>
 
         <Box paddingY={4} marginY={4}>
-          <Text fontSize="1.2rem">{message}</Text>
+          <ShowContext context={message} />
         </Box>
 
         <CommentInteractive
